@@ -1,0 +1,65 @@
+-- Film Table: This query retrieves various statistics from the film table.
+
+SELECT 
+    MIN(film_id) AS minimum_film_id, -- Find the minimum film_id.
+    MAX(film_id) AS maximum_film_id, -- Find the maximum film_id.
+    AVG(film_id) AS average_film_id, -- Calculate the average film_id.
+
+    MIN(rental_duration) AS minimum_rental_duration, -- Find the minimum rental_duration.
+    MAX(rental_duration) AS maximum_rental_duration, -- Find the maximum rental_duration.
+    AVG(rental_duration) AS average_rental_duration, -- Calculate the average rental_duration.
+
+    MIN(release_year) AS minimum_release_year, -- Find the minimum release_year.
+    MAX(release_year) AS maximum_release_year, -- Find the maximum release_year.
+    AVG(release_year) AS average_release_year, -- Calculate the average release_year.
+
+    MIN(rental_rate) AS minimum_rental_rate, -- Find the minimum rental_rate.
+    MAX(rental_rate) AS maximum_rental_rate, -- Find the maximum rental_rate.
+    AVG(rental_rate) AS average_rental_rate, -- Calculate the average rental_rate.
+
+    MIN(language_id) AS minimum_language_id, -- Find the minimum language_id.
+    MAX(language_id) AS maximum_language_id, -- Find the maximum language_id.
+    AVG(language_id) AS average_language_id, -- Calculate the average language_id.
+
+    MIN(length) AS minimum_length, -- Find the minimum length.
+    MAX(length) AS maximum_length, -- Find the maximum length.
+    AVG(length) AS average_length, -- Calculate the average length.
+
+    MIN(replacement_cost) AS minimum_replacement_cost, -- Find the minimum replacement_cost.
+    MAX(replacement_cost) AS maximum_replacement_cost, -- Find the maximum replacement_cost.
+    AVG(replacement_cost) AS average_replacement_cost, -- Calculate the average replacement_cost.
+
+    MODE() WITHIN GROUP (ORDER BY title) AS title_mode_value, -- Find the mode (most common) title value.
+    MODE() WITHIN GROUP (ORDER BY description) AS description_mode_value, -- Find the mode description value.
+    MODE() WITHIN GROUP (ORDER BY rating) AS rating_mode_value, -- Find the mode rating value.
+    MODE() WITHIN GROUP (ORDER BY last_update) AS last_update_mode_value, -- Find the mode last_update value.
+    MODE() WITHIN GROUP (ORDER BY special_features) AS special_features_mode_value, -- Find the mode special_features value.
+    MODE() WITHIN GROUP (ORDER BY fulltext) AS fulltext_mode_value -- Find the mode fulltext value.
+
+FROM film;
+
+-- Customer Table: This query retrieves various statistics from the customer table.
+
+SELECT 
+    MIN(customer_id) AS minimum_customer_id, -- Find the minimum customer_id.
+    MAX(customer_id) AS maximum_customer_id, -- Find the maximum customer_id.
+    AVG(customer_id) AS average_customer_id, -- Calculate the average customer_id.
+
+    MIN(store_id) AS minimum_store_id, -- Find the minimum store_id.
+    MAX(store_id) AS maximum_store_id, -- Find the maximum store_id.
+    AVG(store_id) AS average_store_id, -- Calculate the average store_id.
+
+    MIN(address_id) AS minimum_address_id, -- Find the minimum address_id.
+    MAX(address_id) AS maximum_address_id, -- Find the maximum address_id.
+    AVG(address_id) AS average_address_id, -- Calculate the average address_id.
+
+    MODE() WITHIN GROUP (ORDER BY first_name) AS first_name_mode_value, -- Find the mode first_name value.
+    MODE() WITHIN GROUP (ORDER BY last_name) AS last_name_mode_value, -- Find the mode last_name value.
+    MODE() WITHIN GROUP (ORDER BY email) AS email_mode_value, -- Find the mode email value.
+    MODE() WITHIN GROUP (ORDER BY activebool) AS activebool_mode_value, -- Find the mode activebool value.
+    MODE() WITHIN GROUP (ORDER BY create_date) AS create_date_mode_value, -- Find the mode create_date value.
+    MODE() WITHIN GROUP (ORDER BY last_update) AS last_update_mode_value, -- Find the mode last_update value.
+    MODE() WITHIN GROUP (ORDER BY active) AS active_mode_value -- Find the mode active value.
+
+FROM customer;
+

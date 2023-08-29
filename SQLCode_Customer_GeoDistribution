@@ -1,0 +1,17 @@
+-- Countries for Rockbuster: This query calculates customer numbers, number of rents, and total amount paid for Rockbuster by country.
+
+SELECT 
+    E.country, -- Select the country column.
+    COUNT(DISTINCT B.customer_id) AS total_customers, -- Count the distinct customer IDs for total customers.
+    COUNT(F.rental_id) AS total_rents, -- Count the rental IDs for total rents.
+    SUM(A.amount) AS total_amount -- Sum the payment amounts for total amount paid.
+
+FROM payment A -- Start from the payment table.   
+INNER JOIN rental F ON A.customer_id = F.customer_id -- Join with the rental table on customer_id.    
+INNER JOIN customer B ON A.customer_id = B.customer_id -- Join with the customer table on customer_id.    
+INNER JOIN address C ON B.address_id = C.address_id -- Join with the address table on address_id.    
+INNER JOIN city D ON C.city_id = D.city_id -- Join with the city table on city_id.
+INNER JOIN country E ON D.country_id = E.country_id -- Join with the country table on country_id.
+
+GROUP BY E.country -- Group the results by country.
+ORDER BY total_amount DESC; -- Order the results by total_amount in descending order.

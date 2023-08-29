@@ -1,0 +1,14 @@
+-- Film Analysis by Rating: This query calculates the number of films, total number of rents, and total amount paid for films based on their rating.
+
+SELECT 
+    H.rating, -- Select the film rating.
+    COUNT(DISTINCT H.film_id) AS number_of_films, -- Count the distinct film IDs for number of films.
+    COUNT(F.rental_id) AS total_rents, -- Count the rental IDs for total rents.
+    SUM(A.amount) AS total_amount -- Sum the payment amounts for total amount paid.
+
+FROM payment A -- Start from the payment table.
+INNER JOIN rental F ON A.rental_id = F.rental_id -- Join with the rental table on rental_id.
+INNER JOIN inventory G ON F.inventory_id = G.inventory_id -- Join with the inventory table on inventory_id.
+INNER JOIN film H ON G.film_id = H.film_id -- Join with the film table on film_id.
+
+GROUP BY H.rating -- Group the results by film rating.

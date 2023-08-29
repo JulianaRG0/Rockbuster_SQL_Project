@@ -1,0 +1,21 @@
+-- Rents and Amount Paid by Films, Genre, and Rating: This query calculates the total number of rents and the total amount paid for films based on their title, genre, and rating.
+
+SELECT 
+    D.title, -- Select the film title.
+    D.rating, -- Select the film rating.
+    F.name AS genre, -- Select the film genre.
+
+    COUNT(B.rental_id) AS total_rents, -- Count the rental IDs for total rents.
+    SUM(A.amount) AS total_amount -- Sum the payment amounts for total amount paid.
+
+FROM payment A -- From the payment table.
+
+INNER JOIN rental B ON A.rental_id = B.rental_id -- Join with the rental table on rental_id.
+INNER JOIN inventory C ON B.inventory_id = C.inventory_id -- Join with the inventory table on inventory_id.
+INNER JOIN film D ON C.film_id = D.film_id -- Join with the film table on film_id.
+INNER JOIN film_category E ON C.film_id = E.film_id -- Join with the film_category table on film_id.
+INNER JOIN category F ON E.category_id = F.category_id -- Join with the category table on category_id.
+
+GROUP BY D.title, D.rating, genre -- Group the results by film title, rating, and genre.
+
+ORDER BY total_amount DESC; -- Order the results by total_amount in descending order.

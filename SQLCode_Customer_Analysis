@@ -1,0 +1,41 @@
+-- Top 5 Customers in the Top 10 Cities: Retrieve the top 5 customers in the specified top 10 cities based on the total amount paid.
+SELECT
+    A.customer_id,       -- Customer ID.
+    B.first_name,        -- First name of the customer.
+    B.last_name,         -- Last name of the customer.
+    E.country,           -- Country of the customer.
+    D.City,              -- City of the customer.
+    SUM(amount) AS total_amount_paid -- Total amount paid by the customer.
+
+-- Join with the payment table with the country table
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+
+WHERE D.city IN ('Aurora', 'Acua', 'Citrus Heights', 'Iwaki', 'Ambattur', 'Shanwei', 'So Leopoldo', 'Teboksary', 'Tianjin', 'Cianjur')
+
+GROUP BY A.customer_id, B.first_name, B.last_name, E.country, D.city
+ORDER BY total_amount_paid DESC
+LIMIT 5;
+
+-- Customers by City: Analyze customers by their city, showcasing rental statistics and total spending.
+SELECT
+    A.customer_id,       -- Customer ID.
+    B.first_name,        -- First name of the customer.
+    B.last_name,         -- Last name of the customer.
+    D.city,              -- City of the customer.
+    E.country,           -- Country of the customer.
+    COUNT(A.rental_id) AS total_rents,   -- Count of rentals for the customer.
+    SUM(A.amount) AS total_amount        -- Total amount spent by the customer.
+
+-- Join with the payment table with the country table
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+
+GROUP BY A.customer_id, B.first_name, B.last_name, D.city, E.country
+ORDER BY total_amount DESC;
